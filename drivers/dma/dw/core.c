@@ -191,8 +191,10 @@ static inline void dwc_dump_chan_regs(struct dw_dma_chan *dwc)
 
 static inline void dwc_chan_disable(struct dw_dma *dw, struct dw_dma_chan *dwc)
 {
+	unsigned int count = 20;
+
 	channel_clear_bit(dw, CH_EN, dwc->mask);
-	while (dma_readl(dw, CH_EN) & dwc->mask)
+	while (dma_readl(dw, CH_EN) & dwc->mask && count--)
 		cpu_relax();
 }
 
@@ -1106,6 +1108,7 @@ static void dwc_issue_pending(struct dma_chan *chan)
 
 static void dw_dma_off(struct dw_dma *dw)
 {
+	unsigned int count = 20;
 	int i;
 
 	dma_writel(dw, CFG, 0);
@@ -1115,7 +1118,7 @@ static void dw_dma_off(struct dw_dma *dw)
 	channel_clear_bit(dw, MASK.DST_TRAN, dw->all_chan_mask);
 	channel_clear_bit(dw, MASK.ERROR, dw->all_chan_mask);
 
-	while (dma_readl(dw, CFG) & DW_CFG_DMA_EN)
+	while (dma_readl(dw, CFG) & DW_CFG_DMA_EN && count--)
 		cpu_relax();
 
 	for (i = 0; i < dw->dma.chancnt; i++)
