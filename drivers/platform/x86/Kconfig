@@ -756,6 +756,11 @@ config GPIO_INTEL_PMIC
 	  Say Y here to support GPIO via the SCU IPC interface
 	  on Intel MID platforms.
 
+config INTEL_PMU
+	bool "Intel PMU Support"
+	depends on X86_INTEL_MID
+	default y
+
 config INTEL_MID_POWER_BUTTON
 	tristate "power button driver for Intel MID platforms"
 	depends on INTEL_SCU_IPC && INPUT
