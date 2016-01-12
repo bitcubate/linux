@@ -99,8 +99,8 @@ static const struct pci_device_id dw_pci_id_table[] = {
 	{ PCI_VDEVICE(INTEL, 0x0830) },
 
 	/* Merrifield */
-	{ PCI_VDEVICE(INTEL, 0x119b), (kernel_ulong_t)&dw_pci_pdata },
-	{ PCI_VDEVICE(INTEL, 0x11a2), (kernel_ulong_t)&dw_pci_pdata },
+	{ PCI_VDEVICE(INTEL, 0x119b) },
+	{ PCI_VDEVICE(INTEL, 0x11a2) },
 
 	/* BayTrail */
 	{ PCI_VDEVICE(INTEL, 0x0f06) },
